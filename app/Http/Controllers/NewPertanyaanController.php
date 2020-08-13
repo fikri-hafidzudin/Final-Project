@@ -14,7 +14,7 @@ class NewPertanyaanController extends Controller
      */
     public function index()
     {
-         $pertanyaan = pertanyaan::all();
+        $pertanyaan = pertanyaan::all();
         return view('pertanyaan.index', compact('pertanyaan'));
     }
 
