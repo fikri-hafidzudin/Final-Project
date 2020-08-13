@@ -16,10 +16,10 @@ class CreateUpvoteDownvotePertanyaanTable extends Migration
         Schema::create('upvote_downvote_pertanyaan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('pertanyaan_id');
-            $table->unsignedBigInteger('profil_id');
+            $table->unsignedBigInteger('user_id');
             $table->integer('poin');
             $table->foreign('pertanyaan_id')->references('id')->on('pertanyaan');
-            $table->foreign('profil_id')->references('id')->on('profils');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
