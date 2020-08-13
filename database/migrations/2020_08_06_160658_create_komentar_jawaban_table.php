@@ -18,9 +18,9 @@ class CreateKomentarJawabanTable extends Migration
             $table->string('isi');
             $table->date('tanggal_dibuat');
             $table->unsignedBigInteger('jawaban_id');
-            $table->unsignedBigInteger('profil_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('jawaban_id')->references('id')->on('jawaban');
-            $table->foreign('profil_id')->references('id')->on('profils');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
