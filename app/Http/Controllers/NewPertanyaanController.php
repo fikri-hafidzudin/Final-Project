@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\pertanyaan;
+use Illuminate\Support\Facades\Auth;
 
 class NewPertanyaanController extends Controller
 {
@@ -25,7 +26,7 @@ class NewPertanyaanController extends Controller
      */
     public function create()
     {
-        return view('proyek.create');
+        return view('pertanyaan.create');
     }
 
     /**
@@ -45,9 +46,10 @@ class NewPertanyaanController extends Controller
         $pertanyaan1 = new Pertanyaan;
         $pertanyaan1->judul = $request["judul"];
         $pertanyaan1->isi   = $request["isi"];
+        $pertanyaan1->user_id   = Auth::user()->id;
         $pertanyaan1->save();
 
-        return redirect('/pertanyaan')->with('success', 'Pertanyaan anda telah diajukan');
+        return redirect('/pertanyaanbaru')->with('success', 'Pertanyaan anda telah diajukan');
     }
 
     /**
@@ -83,12 +85,12 @@ class NewPertanyaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $pertanyaan = pertanyaan::find($id);
+        $pertanyaan = pertanyaan::find($id);
         $pertanyaan->judul = $request["judul"];
         $pertanyaan->isi   = $request["isi"];
         $pertanyaan->save();
 
-        return redirect('/pertanyaan');
+        return redirect('/pertanyaanbaru');
     }
 
     /**
@@ -100,7 +102,7 @@ class NewPertanyaanController extends Controller
     public function destroy($id)
     {
         pertanyaan::destroy($id);
-        return redirect('/pertanyaan');
+        return redirect('/pertanyaanbaru');
     }
     }
 

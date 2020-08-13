@@ -104,27 +104,26 @@
             </a>
           </li>
           <li class="nav-item has-treeview menu-open">
-            <a href="pertanyaan" class="nav-link">
+            <a href="{{url ('/pertanyaanbaru') }}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Pertanyaan
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview" style="display: block;">
+            <!-- <ul class="nav nav-treeview" style="display: block;">
               <li class="nav-item">
-                <a href="pertanyaanbaru/create" class="nav-link">
+                <a href="{{url ('pertanyaanbaru/create') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Buat Pertanyaan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/pertanyaanbaru" class="nav-link">
+                <a href="{{url ('/pertanyaanbaru') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Daftar Pertanyaan</p>
                 </a>
               </li>
-            </ul>
+            </ul> -->
           </li>
             {{-- <ul class="nav nav-treeview">
               <li class="nav-item">

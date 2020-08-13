@@ -18,6 +18,7 @@
     
                     <div class="card-footer">
                       <button type="submit" class="btn btn-primary">Submit</button>
+                      <a class="btn btn-default" href="{{ route('pertanyaanbaru.index') }}">Kembali</a>
                     </div>
                 </div>
               </form>
