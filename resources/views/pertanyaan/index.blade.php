@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="mt-3 ml-3">
-    
-    <div class="card">
+    <a class="btn btn-info mt-2 mb-2" href="{{url ('pertanyaanbaru/create') }}">Tambah Baru</a>
+    <div class="card"> 
     <div class="card-header">
-            <h3 class="card-title">Pertanyaan</h3>
+            <h3 class="card-title">Daftar Pertanyaan</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -30,9 +30,9 @@
                     <td> {{$item -> judul}} </td>
                     <td> {{$item -> isi}} </td>
                     <td style="display: flex;">
-                        <a href="/pertanyaan/{{$item->id}}" class="btn btn-info btn-sm">show</a>
-                        <a href="/pertanyaan/{{$item->id}}/edit" class="btn btn-info btn-sm mr-1 ml-1">edit</a>
-                        <form action="/pertanyaan/{{$item->id}}" method="POST">
+                        <a href="{{ route('pertanyaanbaru.show', $item->id) }}" class="btn btn-info btn-sm">show</a>
+                        <a href="{{ route('pertanyaanbaru.edit', $item->id) }}" class="btn btn-warning btn-sm mr-1 ml-1">edit</a>
+                        <form action="{{ route('pertanyaanbaru.destroy', $item->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <input type="submit" value="delete" class="btn btn-danger btn-sm">

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\pertanyaan;
-use Illuminate\Support\Facades\Auth;
+use App\Jawaban;
+use DB;
 
-class NewPertanyaanController extends Controller
+class JawabanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +17,7 @@ class NewPertanyaanController extends Controller
      */
     public function index()
     {
-        $pertanyaan = pertanyaan::all();
-        return view('pertanyaan.index', compact('pertanyaan'));
+        //
     }
 
     /**
@@ -26,7 +27,7 @@ class NewPertanyaanController extends Controller
      */
     public function create()
     {
-        return view('pertanyaan.create');
+        //
     }
 
     /**
@@ -37,18 +38,17 @@ class NewPertanyaanController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
-            'judul'=> 'required',
-            'isi'  => 'required'
-
-        ]);
-
-        $pertanyaan1 = new Pertanyaan;
-        $pertanyaan1->judul = $request["judul"];
-        $pertanyaan1->isi   = $request["isi"];
-        $pertanyaan1->user_id   = Auth::user()->id;
-        $pertanyaan1->save();
-
+        $pertanyaan = new pertanyaan;        
+        $jawaban = new Jawaban;
+        $jawaban->isi = $request["isi"];
+        $jawaban->pertanyaan_id = $pertanyaan->id;
+        $jawaban->user_id = Auth::user()->id;
+        $jawaban->save();
+        //  $jawaban = Jawaban::Create([
+        //      "isi" => $request["isi"],
+        //      "user_id" => Auth::user()->id
+        //  ]);
+        
         return redirect('/pertanyaanbaru')->with('success', 'Pertanyaan anda telah diajukan');
     }
 
@@ -60,8 +60,7 @@ class NewPertanyaanController extends Controller
      */
     public function show($id)
     {
-        $pertanyaan = pertanyaan::find($id);
-        return view('pertanyaan.show', compact('pertanyaan'));
+        
     }
 
     /**
@@ -72,8 +71,7 @@ class NewPertanyaanController extends Controller
      */
     public function edit($id)
     {
-        $pertanyaan = pertanyaan::find($id); 
-        return view('pertanyaan.edit', compact('pertanyaan'));
+        //
     }
 
     /**
@@ -85,12 +83,7 @@ class NewPertanyaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $pertanyaan = pertanyaan::find($id);
-        $pertanyaan->judul = $request["judul"];
-        $pertanyaan->isi   = $request["isi"];
-        $pertanyaan->save();
-
-        return redirect('/pertanyaanbaru');
+        //
     }
 
     /**
@@ -101,8 +94,6 @@ class NewPertanyaanController extends Controller
      */
     public function destroy($id)
     {
-        pertanyaan::destroy($id);
-        return redirect('/pertanyaanbaru');
+        //
     }
-    }
-
+}
