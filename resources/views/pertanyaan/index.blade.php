@@ -14,12 +14,13 @@
                 {{session('success')}} 
             </div>
             @endif
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped" >
             <thead>                    
                 <tr>
-                    <th style="width: 10px">#</th>
+                    <th style="width: 10px">No.</th>
                     <th>Judul</th>
                     <th>Isi</th>
+                    <th style="width: 80px">Vote</th>
                     <th style="width: 40px">Option</th>
                 </tr>
             </thead>
@@ -29,6 +30,16 @@
                     <td> {{$key + 1}} </td>
                     <td> {{$item -> judul}} </td>
                     <td> {!!$item -> isi!!} </td>
+                    <td>
+                    <button class="btn btn-secondary mb-2">
+                        <i class="fas fa-thumbs-up"></i>
+                        (0)
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-thumbs-down"></i>
+                        (0)
+                    </button>
+                    </td>
                     <td style="display: flex;">
                         <a href="{{ route('pertanyaanbaru.show', $item->id) }}" class="btn btn-info btn-sm">show</a>
                         <a href="{{ route('pertanyaanbaru.edit', $item->id) }}" class="btn btn-warning btn-sm mr-1 ml-1">edit</a>

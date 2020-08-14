@@ -12,7 +12,7 @@
       <p>Oleh : {{$pertanyaan->user->name}}</p>
     </div>
     <div class="card-body">
-    <p>{{$pertanyaan->isi}} </p>
+    <p>{!!$pertanyaan->isi!!} </p>
     </div>
     <div class="card-header">
       Tags :

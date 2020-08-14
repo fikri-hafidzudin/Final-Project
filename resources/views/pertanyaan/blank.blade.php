@@ -50,6 +50,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
+      <li>Profil</li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('logout') }}"
           onclick="event.preventDefault();
@@ -68,7 +69,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
+    <a href="/" class="brand-link">
       <img src="{{ asset('/adminlte/dist/img/AdminLTELogo.png')}}"
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
@@ -87,7 +88,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview">
-            <a href='#' class="nav-link">
+            <a href='/' class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Home
