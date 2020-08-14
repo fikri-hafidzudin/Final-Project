@@ -11,7 +11,7 @@
       <h3>{{$pertanyaan->judul}}</h3>
     </div>
     <div class="card-body">
-    <p>{{$pertanyaan->isi}} </p>
+    <p>{!!$pertanyaan->isi!!} </p>
     </div>
     <div class="card-header">
       Tags :
