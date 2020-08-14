@@ -1,6 +1,6 @@
 @extends('pertanyaan.blank')
 @section('content')
-    <form role="form" action="{{url ('/pertanyaanbaru') }}" method="POST">
+    <form role="form" action="{{url ('pertanyaanbaru') }}" method="POST">
       @csrf
       <div class="mt-3 ml-3 mr-3">
           <div class="card card-primary">

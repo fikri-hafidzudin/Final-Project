@@ -38,6 +38,10 @@ class JawabanController extends Controller
      */
     public function store(Request $request)
     {       
+        $request->validate([
+            'isi'  => 'required'
+        ]);
+        
         $jawaban = new Jawaban;
         $jawaban->isi = $request["isi"];
         $jawaban->pertanyaan_id = $request["pertanyaan_id"];
@@ -79,6 +83,10 @@ class JawabanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'isi'  => 'required'
+        ]);
+        
         $jawaban = Jawaban::find($id);
         $jawaban->isi   = $request["isi"];
         $jawaban->save();
