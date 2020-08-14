@@ -25,7 +25,7 @@ class NewPertanyaanController extends Controller
      */
     public function create()
     {
-        return view('proyek.create');
+        return view('pertanyaan.create');
     }
 
     /**
