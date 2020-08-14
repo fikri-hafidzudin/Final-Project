@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\pertanyaan;
+use App\KomentarPertanyaan;
 use App\Jawaban;
 use DB;
 
-class JawabanController extends Controller
+
+class KomentarPertanyaanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,18 +38,18 @@ class JawabanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
+    {
         $request->validate([
             'isi'  => 'required'
         ]);
         
-        $jawaban = new Jawaban;
-        $jawaban->isi = $request["isi"];
-        $jawaban->pertanyaan_id = $request["pertanyaan_id"];
-        $jawaban->user_id = Auth::user()->id;
-        $jawaban->save();
+        $komentarPertanyaan = new KomentarPertanyaan;
+        $komentarPertanyaan->isi = $request["isi"];
+        $komentarPertanyaan->pertanyaan_id = $request["pertanyaan_id"];
+        $komentarPertanyaan->user_id = Auth::user()->id;
+        $komentarPertanyaan->save();
         
-        return redirect()->route('pertanyaanbaru.show', [$jawaban->pertanyaan_id]);
+        return redirect()->route('pertanyaanbaru.show', [$komentarPertanyaan->pertanyaan_id]);
     }
 
     /**
@@ -59,7 +60,7 @@ class JawabanController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**
@@ -70,8 +71,8 @@ class JawabanController extends Controller
      */
     public function edit($id)
     {
-        $jawaban = Jawaban::find($id); 
-        return view('jawaban.edit', compact('jawaban'));
+        $komentarPertanyaan = KomentarPertanyaan::find($id); 
+        return view('komentarPertanyaan.edit', compact('komentarPertanyaan'));
     }
 
     /**
@@ -87,11 +88,11 @@ class JawabanController extends Controller
             'isi'  => 'required'
         ]);
         
-        $jawaban = Jawaban::find($id);
-        $jawaban->isi   = $request["isi"];
-        $jawaban->save();
+        $komentarPertanyaan = KomentarPertanyaan::find($id);
+        $komentarPertanyaan->isi   = $request["isi"];
+        $komentarPertanyaan->save();
 
-        return redirect()->route('pertanyaanbaru.show', [$jawaban->pertanyaan_id]);
+        return redirect()->route('pertanyaanbaru.show', [$komentarPertanyaan->pertanyaan_id]);
     }
 
     /**
@@ -102,8 +103,8 @@ class JawabanController extends Controller
      */
     public function destroy($id)
     {
-        $jawaban = Jawaban::find($id);
-        Jawaban::destroy($id);
-        return redirect()->route('pertanyaanbaru.show', ['pertanyaanbaru' => $jawaban->pertanyaan_id]);
+        $komentarPertanyaan = KomentarPertanyaan::find($id);
+        KomentarPertanyaan::destroy($id);
+        return redirect()->route('pertanyaanbaru.show', ['pertanyaanbaru' => $komentarPertanyaan->pertanyaan_id]);
     }
 }
