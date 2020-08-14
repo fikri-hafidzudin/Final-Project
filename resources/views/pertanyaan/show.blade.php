@@ -13,10 +13,10 @@
     <div class="card-body">
     <p>{{$pertanyaan->isi}} </p>
     </div>
-    <div>
+    <div class="card-header">
       Tags :
       @forelse($pertanyaan->tags as $tag)
-        <button class="btn btn-primary btn-sm">{{ $tag}}</button>
+        <button class="btn btn-primary btn-sm">{{ $tag->tag }}</button>
 
         @empty
         No Tags
