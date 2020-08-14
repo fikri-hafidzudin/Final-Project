@@ -11,4 +11,12 @@ class Jawaban extends Model
     public function pertanyaan(){
         return $this -> belongsTo('App\pertanyaan', 'pertanyaan_id');
     }
+
+    public function komentar(){
+        return $this -> hasMany('App\KomentarJawaban', 'jawaban_id');
+    }
+
+    public function user(){
+        return $this -> belongsTo('App\User', 'user_id');
+    }
 }

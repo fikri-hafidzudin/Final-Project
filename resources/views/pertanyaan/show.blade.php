@@ -27,7 +27,6 @@
 
   <div class="card">
   <table class="table table-bordered">
-  <tr> <h3>Komentar :</h3> </tr>
               <tbody>
               @forelse ($pertanyaan->komentar as $key => $komen)
                 <tr>
@@ -49,10 +48,11 @@
               </tbody>
               <form role="form" action="{{ route('komentarPertanyaan.store') }}" method="POST">
                   @csrf
-                  <div class="mt-3 ml-3 mr-3">
                       <div class="card-body">
-                        <div class="form-group">
+                        <label for="isi">Komentar :</label>
+                        <div class="form-group" style="display:flex;">
                           <input type="text" class="form-control" id="isi" name="isi" value="{{old('isi', '')}}" placeholder="Tulis komentar">
+                          <button type="submit" class="btn btn-primary">Kirim</button>
                         @error('isi')
                         <div class="alert alert-danger">{{$message}}</div>
                         @enderror
@@ -68,16 +68,13 @@
                         @enderror
                         </div>
                       </div>
-                      <!-- /.card-body -->
-                      <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Kirim</button>
-                      </div>
-                  </div>
+                      <!-- /.card-body -->                 
                 </form>
     </table>
     </div>
-</div>
+    </div>
 
+  <div class="mt-3 ml-3">
   <div class="card">
   <table class="table table-bordered">
   <thead>
@@ -94,6 +91,45 @@
                         @method('DELETE')
                         <input type="submit" value="delete" class="btn btn-danger btn-sm">
                         </form>
+                        <a href="{{ route('jawaban.tepat', $jawab->pertanyaan_id) }}" class="btn btn-info btn-sm mr-1 ml-1">Pilih Jawaban Tepat</a>
+                    </td>
+                    <td>
+                        <form role="form" action="{{ route('komentarJawaban.store') }}" method="POST">
+                            @csrf
+                                  <label for="isi">Komentar</label>
+                                  <div class="form-group" style="display: flex;">
+                                    <input type="text" class="form-control" id="isi" name="isi" value="{{old('isi', '')}}" placeholder="Tulis komentar">
+                                    <button type="submit" class="btn btn-primary">Kirim</button>
+                                  @error('isi')
+                                  <div class="alert alert-danger">{{$message}}</div>
+                                  @enderror
+                                  </div>
+                              
+                                  <div class="form-group" style="display:none;>
+                                    <label for="isi">jawaban_id</label>
+                                    <input type="text" class="form-control" id="jawaban_id" name="jawaban_id" value="{{$jawab->id}}" placeholder="id">
+                                    
+                                  @error('isi')
+                                  <div class="alert alert-danger">{{$message}}</div>
+                                  @enderror
+                                  </div>
+                                <!-- /.card-body -->
+                          </form>
+                          @forelse ($jawab->komentar as $key => $komen)
+                                <div style="display: flex;">
+                                    {{$jawab->user->name}} : {!! $komen -> isi !!} 
+                                    <div class="ml-auto" style="display:flex;">
+                                    <a href="{{ route('komentarJawaban.edit', $komen->id) }}" class="btn btn-warning btn-sm mr-1 ml-1">edit</a>
+                                    <form action="{{ route('komentarJawaban.destroy', $komen->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="delete" class="btn btn-danger btn-sm">
+                                    </form>
+                                    </div>
+                                </div>
+                            @empty
+                            
+                          @endforelse
                     </td>
                 </tr>
                 @empty
@@ -109,7 +145,7 @@
       <div class="mt-3 ml-3 mr-3">
           <div class="card-body">
             <div class="form-group">
-              <label for="isi">Jawab</label>
+              <label for="isi">Jawab :</label>
               <textarea name="isi" class="form-control my-editor">{!! old('isi', '') !!}</textarea>
             @error('isi')
             <div class="alert alert-danger">{{$message}}</div>
@@ -132,6 +168,7 @@
           </div>
       </div>
     </form>
+  </div>
 </div>
     
 @endsection

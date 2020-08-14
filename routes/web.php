@@ -31,3 +31,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 });
 
 Route::resource('komentarPertanyaan', 'KomentarPertanyaanController');
+
+Route::resource('komentarJawaban', 'KomentarJawabanController');
+
+Route::post('/pertanyaanbaru/{pertanyaanbaru}', 'NewPertanyaanController@tepat')->name('jawaban.tepat');

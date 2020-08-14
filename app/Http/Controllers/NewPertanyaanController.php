@@ -104,5 +104,15 @@ class NewPertanyaanController extends Controller
         pertanyaan::destroy($id);
         return redirect('/pertanyaanbaru');
     }
+
+    public function tepat($id)
+    {   
+        $jawaban = new Jawaban;
+        $pertanyaan = pertanyaan::find($jawaban->pertanyaan_id);
+        $pertanyaan->jawaban_tepat_id = $id;
+        $pertanyaan->save();
+
+        return redirect()->route('pertanyaanbaru.show', [$jawaban->pertanyaan_id]);
     }
+}
 
