@@ -51,7 +51,7 @@ class NewPertanyaanController extends Controller
 
         return redirect('/pertanyaanbaru')->with('success', 'Pertanyaan anda telah diajukan');
     }
-
+ 
     /**
      * Display the specified resource.
      *

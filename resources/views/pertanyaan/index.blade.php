@@ -28,7 +28,7 @@
                 <tr>
                     <td> {{$key + 1}} </td>
                     <td> {{$item -> judul}} </td>
-                    <td> {{$item -> isi}} </td>
+                    <td> {!!$item -> isi!!} </td>
                     <td style="display: flex;">
                         <a href="{{ route('pertanyaanbaru.show', $item->id) }}" class="btn btn-info btn-sm">show</a>
                         <a href="{{ route('pertanyaanbaru.edit', $item->id) }}" class="btn btn-warning btn-sm mr-1 ml-1">edit</a>

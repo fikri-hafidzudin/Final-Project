@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-    <form role="form" action="/pertanyaan" method="POST">
+    <form role="form" action="/pertanyaanbaru" method="POST">
       @csrf
       <div class="mt-3 ml-3 mr-3">
           <div class="card card-primary">
