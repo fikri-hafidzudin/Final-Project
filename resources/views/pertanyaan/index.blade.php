@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mt-3 ml-3">
-    <a class="btn btn-info" href="{{url ('pertanyaanbaru/create') }}">Tambah Baru</a>
+    <a class="btn btn-info mt-2 mb-2" href="{{url ('pertanyaanbaru/create') }}">Tambah Baru</a>
     <div class="card"> 
     <div class="card-header">
             <h3 class="card-title">Daftar Pertanyaan</h3>
