@@ -37,19 +37,18 @@ class JawabanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $pertanyaan = new pertanyaan;        
+    {       
+        $request->validate([
+            'isi'  => 'required'
+        ]);
+        
         $jawaban = new Jawaban;
         $jawaban->isi = $request["isi"];
-        $jawaban->pertanyaan_id = $pertanyaan->id;
+        $jawaban->pertanyaan_id = $request["pertanyaan_id"];
         $jawaban->user_id = Auth::user()->id;
         $jawaban->save();
-        //  $jawaban = Jawaban::Create([
-        //      "isi" => $request["isi"],
-        //      "user_id" => Auth::user()->id
-        //  ]);
         
-        return redirect('/pertanyaanbaru')->with('success', 'Pertanyaan anda telah diajukan');
+        return redirect()->route('pertanyaanbaru.show', [$jawaban->pertanyaan_id]);
     }
 
     /**
@@ -71,7 +70,8 @@ class JawabanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $jawaban = Jawaban::find($id); 
+        return view('jawaban.edit', compact('jawaban'));
     }
 
     /**
@@ -83,7 +83,15 @@ class JawabanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'isi'  => 'required'
+        ]);
+        
+        $jawaban = Jawaban::find($id);
+        $jawaban->isi   = $request["isi"];
+        $jawaban->save();
+
+        return redirect()->route('pertanyaanbaru.show', [$jawaban->pertanyaan_id]);
     }
 
     /**
@@ -94,6 +102,9 @@ class JawabanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $jawaban = Jawaban::find($id);
+        Jawaban::destroy($id);
+        //return redirect('/pertanyaanbaru');
+        return redirect()->route('pertanyaanbaru.show', ['pertanyaanbaru' => $jawaban->pertanyaan_id]);
     }
 }
