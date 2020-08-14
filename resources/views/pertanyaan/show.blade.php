@@ -3,10 +3,19 @@
 <div class="mt-3 ml-3">
   <div class="card"> 
     <div class="card-header">
-            <h3>{{$pertanyaan->judul}}</h3>
+      <h3>{{$pertanyaan->judul}}</h3>
     </div>
     <div class="card-body">
     <p>{{$pertanyaan->isi}} </p>
+    </div>
+    <div>
+      Tags :
+      @forelse($pertanyaan->tags as $tag)
+        <button class="btn btn-primary btn-sm">{{ $tag}}</button>
+
+        @empty
+        No Tags
+      @endforelse
     </div>
   </div>
   <div class="card">

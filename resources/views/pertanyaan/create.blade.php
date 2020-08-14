@@ -28,6 +28,7 @@
 
           <div class="card-footer">
             <button type="submit" class="btn btn-primary">Tambah</button>
+            <a class="btn btn-default" href="{{ url('/pertanyaanbaru') }}">Kembali</a>
           </div>
       </div>
     </form>
