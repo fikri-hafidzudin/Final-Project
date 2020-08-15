@@ -13,7 +13,7 @@ class NewPertanyaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,8 +21,10 @@ class NewPertanyaanController extends Controller
 
     public function index()
     {
+
         $pertanyaan = pertanyaan::all();
         return view('pertanyaan.index', compact('pertanyaan'));
+     
     }
 
     /**

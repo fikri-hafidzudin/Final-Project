@@ -28,7 +28,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../../index3.html" class="nav-link">Home</a>
+        <a href="/pertanyaanbaru" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -104,6 +104,34 @@
               </p>
             </a>
           </li> -->
+          <li>
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle" src="{{asset ('/adminlte/dist/img/user4-128x128.jpg')}}" alt="User profile picture">
+                </div>
+
+                <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+
+                <p class="text-muted text-center">Software Engineer</p>
+
+                <ul class="list-group list-group-unbordered mb-3">
+                  <li class="list-group-item">
+                    <b>Pertanyaan</b> <a class="float-right">0</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Jawaban</b> <a class="float-right">543</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Vote</b> <a class="float-right">13,287</a>
+                  </li>
+                </ul>
+
+                <a href="/profile" class="btn btn-primary btn-block"><b>Profile</b></a>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </li>
           <li class="nav-item has-treeview menu-open">
             <a href="{{url ('/pertanyaanbaru') }}" class="nav-link">
               <i class="nav-icon fas fa-question-circle"></i>
@@ -126,6 +154,7 @@
               </li>
             </ul> -->
           </li>
+          
             {{-- <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="../../index.html" class="nav-link">

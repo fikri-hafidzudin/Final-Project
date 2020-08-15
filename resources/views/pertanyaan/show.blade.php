@@ -9,7 +9,7 @@
   <div class="card"> 
     <div class="card-header">
       <h3>{{$pertanyaan->judul}}</h3>
-      <p>Oleh : {{$pertanyaan->user->name}}</p>
+      <p>Oleh : {{$user->name}}</p>
     </div>
     <div class="card-body">
     <p>{!!$pertanyaan->isi!!} </p>
