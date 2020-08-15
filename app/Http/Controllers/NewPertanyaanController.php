@@ -45,7 +45,7 @@ class NewPertanyaanController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'judul'=> 'required',
             'isi'  => 'required'
 
