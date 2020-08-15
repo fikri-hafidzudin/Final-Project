@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\pertanyaan;
+use App\Pertanyaan;
+use App\Tag;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class NewPertanyaanController extends Controller
 {
@@ -24,7 +26,6 @@ class NewPertanyaanController extends Controller
 
         $pertanyaan = pertanyaan::all();
         return view('pertanyaan.index', compact('pertanyaan'));
-     
     }
 
     /**
@@ -34,7 +35,8 @@ class NewPertanyaanController extends Controller
      */
     public function create()
     {
-        return view('pertanyaan.create');
+        $listTag = Tag::all();
+        return view('pertanyaan.create',compact('listTag'));
     }
 
     /**
@@ -56,6 +58,11 @@ class NewPertanyaanController extends Controller
         $pertanyaan1->isi   = $request["isi"];
         $pertanyaan1->user_id   = Auth::user()->id;
         $pertanyaan1->save();
+
+        $tag = $request['tag'];
+        DB::table('tags_has_pertanyaan')->insert(
+            ['tag_id' => $tag, 'pertanyaan_id' => $pertanyaan1->id]
+        );
 
         return redirect('/pertanyaanbaru')->with('success', 'Pertanyaan anda telah diajukan');
     }
@@ -109,7 +116,11 @@ class NewPertanyaanController extends Controller
      */
     public function destroy($id)
     {
-        pertanyaan::destroy($id);
+        $pertanyaan = pertanyaan::destroy($id);
+        $pertanyaan->tag->delete();
+        $pertanyaan->delete();
+        // DB::table('tags_has_pertanyaan')->dropForeign('')
+        //     ->where('pertanyaan_id', '=', $pertanyaan->id)->delete();
         return redirect('/pertanyaanbaru');
     }
 

@@ -28,6 +28,17 @@
             <div class="alert alert-danger">{{$message}}</div>
             @enderror
             </div>
+            <div class="form-group">
+              <label for="Tags">Tags</label>
+              <select class="form-control" name="tag">
+                @foreach($listTag as $item)
+                <option value="{{$item->id}}">{{$item->tag}}</option>
+                @endforeach
+              </select>
+            @error('tag')
+            <div class="alert alert-danger">{{$message}}</div>
+            @enderror
+            </div>
           </div>
           <!-- /.card-body -->
 
