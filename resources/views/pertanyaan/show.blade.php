@@ -9,7 +9,7 @@
   <div class="card"> 
     <div class="card-header">
       <h3>{{$pertanyaan->judul}}</h3>
-      <p>Oleh : {{$user ?? ''}}</p>
+      <p>Oleh :  {{ Auth::user()->name }}</p>
     </div>
     <div class="card-body">
     <p>{!!$pertanyaan->isi!!} </p>

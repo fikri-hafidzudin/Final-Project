@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-<form role="form" action="/pertanyaan/{{$pertanyaan->id}}" method="POST">
+<form role="form" action="{{ route('pertanyaanbaru.update', $pertanyaan->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mt-3 ml-3">
