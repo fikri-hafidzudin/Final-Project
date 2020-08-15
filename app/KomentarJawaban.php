@@ -12,4 +12,8 @@ class KomentarJawaban extends Model
     public function jawaban(){
         return $this -> belongsTo('App\Jawaban', 'jawaban_id');
     }
+
+    public function user(){
+        return $this -> belongsTo('App\User', 'user_id');
+    }
 }

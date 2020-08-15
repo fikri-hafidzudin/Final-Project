@@ -10,7 +10,7 @@
 <!-- pertanyaan --> 
     <div class="card-header">
       <h3>{{$pertanyaan->judul}}</h3>
-      <p>Oleh :  {{ Auth::user()->name }}</p>
+      <p>Oleh :  {{ $pertanyaan->user->name }}</p>
     </div>
     <div class="card-body">
     <p>{!!$pertanyaan->isi!!} </p>
@@ -34,7 +34,7 @@
       <tbody>
       @forelse ($pertanyaan->komentar as $key => $komen)
       <tr>
-        <td>{{$pertanyaan->user->name}} : {!! $komen -> isi !!} </td>
+        <td>{{$komen->user->name}} : {!! $komen -> isi !!} </td>
         <td style="display: flex;">
         <a href="{{ route('komentarPertanyaan.edit', $komen->id) }}" class="btn btn-warning btn-sm mr-1 ml-1">edit</a>
         <form action="{{ route('komentarPertanyaan.destroy', $komen->id) }}" method="POST">
@@ -88,7 +88,7 @@
     <tbody>
               @forelse ($pertanyaan->jawaban as $key => $jawab)
                 <tr>
-                    <td>{{$pertanyaan->user->name}} : {!! $jawab -> isi !!} </td>
+                    <td>{{$jawab->user->name}} : {!! $jawab -> isi !!} </td>
                     <td style="display: flex;">
                         <a href="{{ route('jawaban.edit', $jawab->id) }}" class="btn btn-warning btn-sm mr-1 ml-1">edit</a>
                         <form action="{{ route('jawaban.destroy', $jawab->id) }}" method="POST">

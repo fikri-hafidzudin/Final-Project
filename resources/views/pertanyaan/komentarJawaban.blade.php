@@ -24,7 +24,7 @@
                           </form>
                           @forelse ($jawab->komentar as $key => $komen)
                                 <div style="display: flex;">
-                                    {{$jawab->user->name}} : {!! $komen -> isi !!} 
+                                    {{$komen->user->name}} : {!! $komen -> isi !!} 
                                     <div class="ml-auto" style="display:flex;">
                                     <a href="{{ route('komentarJawaban.edit', $komen->id) }}" class="btn btn-warning btn-sm mr-1 ml-1">edit</a>
                                     <form action="{{ route('komentarJawaban.destroy', $komen->id) }}" method="POST">
