@@ -96,12 +96,16 @@
                         @method('DELETE')
                         <input type="submit" value="delete" class="btn btn-danger btn-sm">
                         </form>
-                        <a href="{{ route('jawaban.tepat', $jawab->pertanyaan_id) }}" class="btn btn-info btn-sm mr-1 ml-1">Pilih Jawaban Tepat</a>
-                        <button class="btn btn-secondary btn-sm">
+                        <form action="{{ route('jawaban.tepat', $jawab->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="submit" value="pilih jawaban tepat" class="btn btn-info btn-sm mr-1 ml-1">
+                        </form>
+                        <button class="btn btn-secondary btn-sm mr-1">
                             <i class="fas fa-thumbs-up"></i>
                             (0)
                         </button>
-                        <button class="btn btn-secondary btn-sm">
+                        <button class="btn btn-secondary btn-sm mr-1">
                             <i class="fas fa-thumbs-down"></i>
                             (0)
                         </button>

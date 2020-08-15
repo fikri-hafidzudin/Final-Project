@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pertanyaan;
+use App\Jawaban;
 use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -126,7 +127,7 @@ class NewPertanyaanController extends Controller
 
     public function tepat($id)
     {   
-        $jawaban = new Jawaban;
+        $jawaban = Jawaban::find($id);
         $pertanyaan = pertanyaan::find($jawaban->pertanyaan_id);
         $pertanyaan->jawaban_tepat_id = $id;
         $pertanyaan->save();

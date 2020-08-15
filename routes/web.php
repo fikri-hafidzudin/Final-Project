@@ -34,6 +34,6 @@ Route::resource('komentarPertanyaan', 'KomentarPertanyaanController');
 
 Route::resource('komentarJawaban', 'KomentarJawabanController');
 
-Route::post('/pertanyaanbaru/{pertanyaanbaru}', 'NewPertanyaanController@tepat')->name('jawaban.tepat');
+Route::put('/pertanyaanbaru/{pertanyaanbaru}', 'NewPertanyaanController@tepat')->name('jawaban.tepat');
 
 Route::resource('profile', 'ProfileController');
