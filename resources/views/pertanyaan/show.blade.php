@@ -24,7 +24,7 @@
       @endforelse
     </div>
     <div style="text-align: right">
-      <button onClick="komentar()" class="btn btn-link btn-sm"><i class="far fa-comment"></i></button>
+      <button onClick="komentar()" class="btn btn-link btn-sm"><i class="far fa-comment"></i> komentar</button>
     </div>
 <!-- pertanyaan sampai sini--> 
 
