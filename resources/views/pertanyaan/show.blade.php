@@ -86,7 +86,7 @@
   <tbody>
     @forelse ($pertanyaan->jawaban as $key => $jawab)
     <tr>
-      <td>{{ $jawaban->user->name }} : {!! $jawab -> isi !!} </td>
+      <td>{{ Auth::user()->name }} : {!! $jawab -> isi !!} </td>
       <td style="display: flex;">
       <a href="{{ route('jawaban.edit', $jawab->id) }}" class="btn btn-warning btn-sm mr-1 ml-1">edit</a>
       <form action="{{ route('jawaban.destroy', $jawab->id) }}" method="POST">
