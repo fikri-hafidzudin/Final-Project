@@ -9,7 +9,7 @@
   <div class="card"> 
     <div class="card-header">
       <h3>{{$pertanyaan->judul}}</h3>
-      <p>Oleh :  {{ Auth::user()->name }}</p>
+      <p>Oleh :  {{$pertanyaan->user->name }}</p>
     </div>
     <div class="card-body">
     <p>{!!$pertanyaan->isi!!} </p>
@@ -86,7 +86,7 @@
   <tbody>
     @forelse ($pertanyaan->jawaban as $key => $jawab)
     <tr>
-      <td>{{ Auth::user()->name }} : {!! $jawab -> isi !!} </td>
+      <td>{{ $jawaban->user->name }} : {!! $jawab -> isi !!} </td>
       <td style="display: flex;">
       <a href="{{ route('jawaban.edit', $jawab->id) }}" class="btn btn-warning btn-sm mr-1 ml-1">edit</a>
       <form action="{{ route('jawaban.destroy', $jawab->id) }}" method="POST">
