@@ -50,7 +50,6 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
-      <li>Profil</li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('logout') }}"
           onclick="event.preventDefault();
