@@ -106,7 +106,7 @@ class NewPertanyaanController extends Controller
                      ->where("pertanyaan_id", $id)
                      ->groupBy('pertanyaan_id')
                      ->get()->first();
-        
+        //dd($vote);
         return view('pertanyaan.show', compact('pertanyaan','vote'));
     }
 
@@ -206,7 +206,7 @@ class NewPertanyaanController extends Controller
             [
                 "pertanyaan_id" => $id,
                 "user_id" => $user,
-                "poin" => 10
+                "poin" => 1
             ]
         );
 
@@ -220,7 +220,7 @@ class NewPertanyaanController extends Controller
             [
                 "pertanyaan_id" => $id,
                 "user_id" => $user,
-                "poin" => -5
+                "poin" => -1
             ]
         );
 

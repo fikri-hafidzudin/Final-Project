@@ -31,7 +31,11 @@
                       <i class="fas fa-caret-up fa-3x" style="color:#DCDCDC"></i>
                     </button>
                   </form>
+                  @if ($vote != null)
                   <h3 align="center" class="my-0 ml-1">{{$vote->poin}}</h3>
+                  @else
+                  <h3 align="center" class="my-0 ml-1">0</h3>
+                  @endif
                   <form action="{{ route('vote.pertanyaandown', $pertanyaan->id) }}" method="POST">
                   @csrf
                     <button class="btn btn-white ml-3 btn-sm">
