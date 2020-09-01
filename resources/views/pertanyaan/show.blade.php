@@ -122,6 +122,7 @@
         </div>
         <div class="col-11">
             <p class="mb-1">{!! $jawab -> isi !!}</p>
+            <p class="mb-1" style="font-size: small;">oleh : {!! $jawab -> user -> name !!}</p>
             <div style="text-align: left">
               <button class="btn btn-link btn-sm komen"><i class="far fa-comment"></i> Tambah Komentar</button>
             </div>
