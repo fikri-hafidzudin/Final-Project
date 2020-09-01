@@ -34,8 +34,6 @@ class HomeController extends Controller
                     ->where("pertanyaan_id", $tanya->id)
                     ->groupBy('pertanyaan_id')
                     ->get()->first();
-                } else {
-                    $votes[] = ['pertanyaan_id'=> $tanya->id];
                 }
         }
 
