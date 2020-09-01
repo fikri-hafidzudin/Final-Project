@@ -1,62 +1,57 @@
 @extends('pertanyaan.blank')
 
 @section('content')
-<div class="mt-3 ml-3">
+<div class="mt-3 ml-3 mr-3">
     <a class="btn btn-info mt-2 mb-2" href="{{url ('pertanyaanbaru/create') }}">Tambah Baru</a>
-    <div class="card"> 
-    <div class="card-header">
-            <h3 class="card-title">Daftar Pertanyaan</h3>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-            @if (session('success'))
-            <div class="alert alert-success">
-                {{session('success')}} 
+    <div class="list-group">
+        @forelse ($pertanyaan as $key => $item)
+    <a href="{{ route('pertanyaanbaru.show', $item->id) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">   
+            <div class="col-2">
+                <div class="row justify-content-md-center">
+                    <div class="col-sm">
+                        <h3 align="center">0</h3> 
+                        <h5 align="center">jawab</h5>
+                    </div>
+                    <div class="col-sm">
+                    
+                        @forelse ($votes as $key => $vote)
+                            
+                                 
+                            
+                                @if ($vote->pertanyaan_id == $item->id)
+                                <h3 align="center">{{$vote->poin}}</h3>  
+                                @endif
+                                
+                        @empty
+                        <h3 align="center">0</h3>
+                        @endforelse
+                        <h5 align="center">votes</h5>
+                    
+                    </div>
+                </div>
             </div>
-            @endif
-            <table class="table table-bordered table-striped" >
-            <thead>                    
-                <tr>
-                    <th style="width: 10px">No.</th>
-                    <th>Judul</th>
-                    <th>Isi</th>
-                    <th style="width: 80px">Vote</th>
-                    <th style="width: 40px">Option</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($pertanyaan as $key => $item)
-                <tr>
-                    <td> {{$key + 1}} </td>
-                    <td> {{$item -> judul}} </td>
-                    <td> {!!$item -> isi!!} </td>
-                    <td>
-                    <button class="btn btn-secondary mb-2">
-                        <i class="fas fa-thumbs-up"></i>
-                        (0)
-                    </button>
-                    <button class="btn btn-secondary">
-                        <i class="fas fa-thumbs-down"></i>
-                        (0)
-                    </button>
-                    </td>
-                    <td style="display: flex;">
-                        <a href="{{ route('pertanyaanbaru.show', $item->id) }}" class="btn btn-info btn-sm">show</a>
-                        <a href="{{ route('pertanyaanbaru.edit', $item->id) }}" class="btn btn-warning btn-sm mr-1 ml-1">edit</a>
-                        <form action="{{ route('pertanyaanbaru.destroy', $item->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" value="delete" class="btn btn-danger btn-sm">
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="4" align="center"> Tidak ada pertanyaan</td>
-                </tr>
-                @endforelse
-            </tbody>
-            </table>   
-        </div>
+            <div class="col-10">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{$item -> judul}}</h5>
+                <small>3 days ago oleh: {{$item -> user -> name}}</small>
+                </div>
+                <p class="mb-1">{!!$item -> isi!!}</p>
+                <small>
+                    @forelse($item->tags as $tag)
+                        <button class="btn btn-primary btn-sm">{{ $tag->tag }}</button>
+                    @empty
+                        No Tags
+                    @endforelse
+                </small>
+            </div>
+        </div> 
+    </a>
+        @empty
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <h5 class="mb-1" align="center">Tidak ada Pertanyaan</h5>
+    </a>
+        @endforelse
+    </div>
 </div>
 @endsection

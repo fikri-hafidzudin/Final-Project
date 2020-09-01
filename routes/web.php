@@ -34,6 +34,10 @@ Route::resource('komentarPertanyaan', 'KomentarPertanyaanController');
 
 Route::resource('komentarJawaban', 'KomentarJawabanController');
 
-Route::put('/pertanyaanbaru/{pertanyaanbaru}', 'NewPertanyaanController@tepat')->name('jawaban.tepat');
+Route::patch('/jawaban/{jawaban}', 'NewPertanyaanController@tepat')->name('jawaban.tepat');
 
 Route::resource('profile', 'ProfileController');
+
+Route::post('/upvote/{upvote}', 'NewPertanyaanController@upvote')->name('vote.pertanyaanup');
+
+Route::post('/downvote/{downvote}', 'NewPertanyaanController@downvote')->name('vote.pertanyaandown');

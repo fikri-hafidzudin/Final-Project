@@ -23,4 +23,8 @@ class Pertanyaan extends Model
     public function user(){
         return $this -> belongsTo('App\User', 'user_id');
     }
+
+    public function vote(){
+        return $this -> hasMany('App\VotePertanyaan', 'pertanyaan_id');
+    }
 }

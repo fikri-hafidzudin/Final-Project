@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-<form role="form" action="{{ route('pertanyaanbaru.update', $pertanyaan->id) }}" method="POST">
+              <form role="form" action="{{ route('pertanyaanbaru.update', $pertanyaan->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mt-3 ml-3">
@@ -16,7 +16,12 @@
                       </div>
                       <div class="form-group">
                         <label for="isi">Pertanyaannya</label> 
-                         <textarea name="isi" class="form-control my-editor">{!! old('isi', $pertanyaan->isi) !!}</textarea>                      </div>
+                        <textarea name="isi" class="form-control my-editor">{!! old('isi', $pertanyaan->isi) !!}</textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="Title">Tag</label>
+                        <input type="text" class="form-control" id="tags" name="tags" value="{{old('id',$tag_name)}} " placeholder="Tulis tag pisahkan dengan koma">
+                      </div>
                     </div>
                     <!-- /.card-body -->
     

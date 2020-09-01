@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Pertanyaan;
 use App\Jawaban;
 use App\Tag;
+use App\VotePertanyaan;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
@@ -26,7 +27,18 @@ class NewPertanyaanController extends Controller
     {
 
         $pertanyaan = pertanyaan::all();
-        return view('pertanyaan.index', compact('pertanyaan'));
+        $votes = [];
+        foreach($pertanyaan as $tanya){
+            if(count($tanya->vote) != 0){
+                $votes[] = DB::table('upvote_downvote_pertanyaan')
+                    ->select(DB::raw('pertanyaan_id, sum(poin) as poin'))
+                    ->where("pertanyaan_id", $tanya->id)
+                    ->groupBy('pertanyaan_id')
+                    ->get()->first();
+                }
+        }
+       // dd(('' $votes));    
+        return view('pertanyaan.index', compact('pertanyaan','votes'));
     }
 
     /**
@@ -51,21 +63,33 @@ class NewPertanyaanController extends Controller
         $request->validate([
             'judul'=> 'required',
             'isi'  => 'required'
-
         ]);
 
+        $tags_arr = explode(',',$request['tags']);
+        
+
+        $tag_ids = [];
+        foreach($tags_arr as $tag_name){
+            $tags = Tag::where("tag", $tag_name)->first();
+            if ($tags){
+                $tag_ids[] = $tags->id;
+            } else {
+                $new_tag = Tag::create(
+                    ["tag" => $tag_name]
+                );
+                $tag_ids[] = $new_tag->id;
+            }
+        }
+        
         $pertanyaan1 = new Pertanyaan;
         $pertanyaan1->judul = $request["judul"];
         $pertanyaan1->isi   = $request["isi"];
         $pertanyaan1->user_id   = Auth::user()->id;
         $pertanyaan1->save();
 
-        $tag = $request['tag'];
-        DB::table('tags_has_pertanyaan')->insert(
-            ['tag_id' => $tag, 'pertanyaan_id' => $pertanyaan1->id]
-        );
-
-        return redirect('/pertanyaanbaru')->with('success', 'Pertanyaan anda telah diajukan');
+        $pertanyaan1->tags()->sync($tag_ids);
+        
+        return redirect('/home')->with('success', 'Pertanyaan anda telah diajukan');
     }
  
     /**
@@ -77,7 +101,13 @@ class NewPertanyaanController extends Controller
     public function show($id)
     {
         $pertanyaan = pertanyaan::find($id);
-        return view('pertanyaan.show', compact('pertanyaan'));
+        $vote = DB::table('upvote_downvote_pertanyaan')
+                     ->select(DB::raw('sum(poin) as poin'))
+                     ->where("pertanyaan_id", $id)
+                     ->groupBy('pertanyaan_id')
+                     ->get()->first();
+        
+        return view('pertanyaan.show', compact('pertanyaan','vote'));
     }
 
     /**
@@ -88,8 +118,15 @@ class NewPertanyaanController extends Controller
      */
     public function edit($id)
     {
-        $pertanyaan = pertanyaan::find($id); 
-        return view('pertanyaan.edit', compact('pertanyaan'));
+        $pertanyaan = pertanyaan::find($id);
+        $tags_arr = [];
+        foreach($pertanyaan->tags as $tag){
+            $tags_arr[] = $tag->tag;
+        }
+        
+        $tag_name = (implode(",",$tags_arr));
+        
+        return view('pertanyaan.edit', compact('pertanyaan','tag_name'));
     }
 
     /**
@@ -101,12 +138,34 @@ class NewPertanyaanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'judul'=> 'required',
+            'isi'  => 'required'
+        ]);
+        
+        $tags_arr = explode(',',$request['tags']);
+        
+        $tag_ids = [];
+        foreach($tags_arr as $tag_name){
+            $tags = Tag::where("tag", $tag_name)->first();
+            if ($tags){
+                $tag_ids[] = $tags->id;
+            } else {
+                $new_tag = Tag::create(
+                    ["tag" => $tag_name]
+                );
+                $tag_ids[] = $new_tag->id;
+            }
+        }
+        
         $pertanyaan = pertanyaan::find($id);
         $pertanyaan->judul = $request["judul"];
         $pertanyaan->isi   = $request["isi"];
         $pertanyaan->save();
 
-        return redirect('/pertanyaanbaru');
+        $pertanyaan->tags()->sync($tag_ids);
+
+        return redirect('/home');
     }
 
     /**
@@ -117,12 +176,17 @@ class NewPertanyaanController extends Controller
      */
     public function destroy($id)
     {
-        $pertanyaan = pertanyaan::destroy($id);
-        $pertanyaan->tag->delete();
+        $pertanyaan = pertanyaan::find($id);
+        $pertanyaan->jawaban_tepat_id = null;
+        $pertanyaan->save();
+        DB::table('komentar_pertanyaan')->where('pertanyaan_id', $pertanyaan->id)->delete();
+        if(count($pertanyaan->jawaban)  != 0 ){
+            DB::table('komentar_jawaban')->where('jawaban_id', $pertanyaan->jawaban->first()->id)->delete();}
+        DB::table('jawaban')->where('pertanyaan_id', $pertanyaan->id)->delete();
+        DB::table('tags_has_pertanyaan')->where('pertanyaan_id', $pertanyaan->id)->delete();
         $pertanyaan->delete();
-        // DB::table('tags_has_pertanyaan')->dropForeign('')
-        //     ->where('pertanyaan_id', '=', $pertanyaan->id)->delete();
-        return redirect('/pertanyaanbaru');
+       
+        return redirect('/home');
     }
 
     public function tepat($id)
@@ -132,7 +196,36 @@ class NewPertanyaanController extends Controller
         $pertanyaan->jawaban_tepat_id = $id;
         $pertanyaan->save();
 
-        return redirect()->route('pertanyaanbaru.show', [$jawaban->pertanyaan_id]);
+        return redirect()->route('pertanyaanbaru.show', $jawaban->pertanyaan_id);
     }
+
+    public function upvote($id)
+    {   
+        $user = Auth::user()->id;
+        $vote = VotePertanyaan::create(
+            [
+                "pertanyaan_id" => $id,
+                "user_id" => $user,
+                "poin" => 10
+            ]
+        );
+
+        return redirect()->route('pertanyaanbaru.show', $id);
+    }
+
+    public function downvote($id)
+    {   
+        $user = Auth::user()->id;
+        $vote = VotePertanyaan::create(
+            [
+                "pertanyaan_id" => $id,
+                "user_id" => $user,
+                "poin" => -5
+            ]
+        );
+
+        return redirect()->route('pertanyaanbaru.show', $id);
+    }
+
 }
 
