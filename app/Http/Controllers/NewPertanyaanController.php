@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pertanyaan;
-use App\Jawaban;
 use App\Tag;
 use App\VotePertanyaan;
 use Illuminate\Support\Facades\Auth;
